@@ -1,8 +1,7 @@
 class GiphyService
 
-  def get_gifs
-    json = get_json('/v1/gifs/search')
-    binding.pry
+  def get_gif(summary)
+    get_json("/v1/gifs/search?q=#{summary}&limit=1")
   end
 
   private
@@ -14,7 +13,7 @@ class GiphyService
 
   def connection
     Faraday.new(url: 'https://api.giphy.com') do |faraday|
-      faraday.params("#{ENV['giphy_key']}")
+      faraday.params['api_key'] = ("#{ENV['giphy_key']}")
 
       faraday.adapter Faraday.default_adapter
     end

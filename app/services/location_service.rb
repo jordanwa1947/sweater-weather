@@ -1,5 +1,4 @@
 class LocationService
-  attr_reader :coords
 
   def initialize(location)
     @location = location

@@ -14,13 +14,8 @@ class DarkSkyService
   attr_reader :location
 
   def get_coordinates
-    location_data = get_location_json
-    {lat: location_data['lat'], lon: location_data['lon']}
-  end
-
-  def get_location_json
-    geocoder_obj = Geocoder.search(location)
-    geocoder_obj.first.data
+    service = LocationService.new(location)
+    service.find_coordinates
   end
 
   def get_json(url)

@@ -1,18 +1,22 @@
 class DarkSkyService
 
-  def initialize(coordinates)
-    @lat = coordinates[:lat]
-    @lon = coordinates[:lon]
+  def initialize(location)
+    @location = location
+    @coords = get_coordinates
   end
 
   def get_forecast
-    json = get_json("/forecast/#{ENV['dark_sky_key']}/#{lat},#{lon}?exlude=minutely")
-    Forecast.new(json)
+    json = get_json("/forecast/#{ENV['dark_sky_key']}/#{@coords[:lat]},#{@coords[:lon]}?exlude=minutely")
   end
 
   private
 
-  attr_reader :lat, :lon
+  attr_reader :location
+
+  def get_coordinates
+    service = LocationService.new(location)
+    service.find_coordinates
+  end
 
   def get_json(url)
     response = connection.get(url)
@@ -25,6 +29,4 @@ class DarkSkyService
       faraday.adapter Faraday.default_adapter
     end
   end
-
-
 end

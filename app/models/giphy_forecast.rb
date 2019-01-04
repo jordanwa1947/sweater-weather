@@ -1,3 +1,0 @@
-class GiphyForcast
-
-end 

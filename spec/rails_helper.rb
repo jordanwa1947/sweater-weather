@@ -17,6 +17,8 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
   config.filter_sensitive_data("<dark_sky_key>") { ENV['dark_sky_key'] }
+  config.filter_sensitive_data("<giphy_key>") { ENV['giphy_key']}
+  config.allow_http_connections_when_no_cassette = true
 end
 # Add additional requires below this line. Rails is not loaded until this point!
 

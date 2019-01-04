@@ -12,8 +12,9 @@ describe 'Giphy Request' do
 
           body = JSON.parse(response.body, symbolize_names: true)
 
-          expect(body[:date][:attributes][:daily_forecasts].count).to eq(8)
-          expect(body[:date][:attributes][:daily_forecasts][:url])
+          expect(body[:data].count).to eq(8)
+          expect(body[:data].first[:attributes][:url])
+          expect(body[:data].last[:attributes][:url])
         end
       end
     end

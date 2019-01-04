@@ -1,4 +1,5 @@
 class GiphyForecast
+  attr_reader :time, :summary, :url 
 
   def initialize(day, giphy_service)
     @time = day[:time]

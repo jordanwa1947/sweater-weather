@@ -4,7 +4,8 @@ class GiphyFacade
     @location = location
     @forecasts = build_giphy_forecasts
   end
-
+# potential memoizing could store gifs from same summary f
+# or future use and less api calls
   def build_giphy_forecasts
     forecast = darksky_service.get_forecast
     forecast[:daily][:data].map do |date|

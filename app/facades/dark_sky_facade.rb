@@ -5,7 +5,7 @@ class DarkSkyFacade
   end
 
   def forecast
-    service.get_forecast
+    Forecast.new(service.get_forecast)
   end
 
   private

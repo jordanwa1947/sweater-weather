@@ -7,7 +7,6 @@ class DarkSkyService
 
   def get_forecast
     json = get_json("/forecast/#{ENV['dark_sky_key']}/#{@coords[:lat]},#{@coords[:lon]}?exlude=minutely")
-    Forecast.new(json)
   end
 
   private

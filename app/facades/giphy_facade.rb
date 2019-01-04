@@ -7,7 +7,9 @@ class GiphyFacade
 
   def build_giphy_forecasts
     forecast = darksky_service.get_forecast
-    binding.pry 
+    forecast[:daily].each do |day|
+      GiphyForecast.new(day, url)
+    end 
   end
 
   private
@@ -18,6 +20,6 @@ class GiphyFacade
   end
 
   def giphy_service
-    GiphyService.new()
+    GiphyService.new
   end
 end

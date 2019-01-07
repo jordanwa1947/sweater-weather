@@ -1,0 +1,14 @@
+en:
+  error_messages:
+
+    user_not_found:
+      title: "Could not find User"
+      detail: "This user does not exist, or has been deleted"
+
+    favorite_not_found:
+      title: "Could not find Favorite"
+      detail: "This Favorite does not exist, or has been deleted"
+
+    access_denied:
+      title: "Unauthorized"
+      detail: "Access Denied"

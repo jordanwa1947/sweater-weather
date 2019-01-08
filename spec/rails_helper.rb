@@ -18,7 +18,6 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
   config.filter_sensitive_data("<dark_sky_key>") { ENV['dark_sky_key'] }
   config.filter_sensitive_data("<giphy_key>") { ENV['giphy_key']}
-  config.allow_http_connections_when_no_cassette = true
 end
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -45,14 +44,15 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
+require "./spec/fixtures/weather_stubs"
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
   config.use_transactional_fixtures = true
+  Geocoder.configure(:lookup => :test)
+
+  include WeatherStubs
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -73,6 +73,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.include FactoryBot::Syntax::Methods
 end
 
 Shoulda::Matchers.configure do |config|
@@ -81,3 +82,45 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Geocoder::Lookup::Test.add_stub(
+"Denver, CO", [
+  {
+    'lat'     => 39.7392364,
+    'lon'    => -104.9848623,
+    'address'      => 'Denver, CO, USA',
+    'state'        => 'Colorado',
+    'state_code'   => 'CO',
+    'country'      => 'USA',
+    'country_code' => 'US'
+  }
+ ]
+)
+
+Geocoder::Lookup::Test.add_stub(
+"Anchorage, AK", [
+  {
+    'lat'     => 61.2163129,
+    'lon'    => -149.8948523,
+    'address'      => 'Anchorage, AK, USA',
+    'state'        => 'Alaska',
+    'state_code'   => 'AK',
+    'country'      => 'USA',
+    'country_code' => 'US'
+  }
+ ]
+)
+
+Geocoder::Lookup::Test.add_stub(
+"Tampa, FL", [
+  {
+    'lat'     => 27.9477595,
+    'lon'    => -82.458444,
+    'address'      => 'Tampa, FL, USA',
+    'state'        => 'Florida',
+    'state_code'   => 'FL',
+    'country'      => 'USA',
+    'country_code' => 'US'
+  }
+ ]
+)

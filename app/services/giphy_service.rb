@@ -1,7 +1,8 @@
 class GiphyService
 
   def get_gif(summary)
-    get_json("/v1/gifs/search?q=#{summary}&limit=1")
+    ascii_only = summary.split('').find_all { |char| char.ascii_only? }.join('')
+    get_json("/v1/gifs/search?q=#{ascii_only}&limit=1")
   end
 
   private

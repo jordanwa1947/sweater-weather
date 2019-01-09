@@ -39,7 +39,7 @@ describe 'Favorite Requests' do
       stub_denver_weather
       stub_tampa_weather
       stub_anchorage_weather
-      
+
       user = User.create(email: "whatever@example.com",
                    password: "password",
                    api_key: "jgn983hy48thw9begh98h4539h4")
@@ -79,6 +79,30 @@ describe 'Favorite Requests' do
 
       expect(response).to be_successful
       expect(Favorite.find_by(id: favorite_2.id)).to eq nil
+    end
+  end
+
+  describe 'client sends delete request to favorites with invalid api_key' do
+    it 'deletes the favorite' do
+      user = User.create(email: "whatever@example.com",
+                   password: "password",
+                   api_key: "jgn983hy48thw9begh98h4539h4")
+      Favorite.create!(location: 'Denver, CO', user_id: user.id)
+      favorite_2 = Favorite.create!(location: 'Tampa, Fl', user_id: user.id)
+      Favorite.create!(location: 'Anchorage, Al', user_id: user.id)
+
+      expect(Favorite.find(favorite_2.id)).to eq favorite_2
+
+      delete '/api/v1/favorites', params: {
+        location: favorite_2.location,
+        api_key: "n983hy48thw9begh98h4539h4"
+      }
+
+      body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(body[:errors].first[:title]).to eq("Unauthorized")
+      expect(body[:errors].first[:status]).to eq(401)
+      expect(body[:errors].first[:detail]).to eq("Access Denied")
     end
   end
 end

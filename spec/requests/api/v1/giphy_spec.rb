@@ -16,7 +16,7 @@ describe 'Giphy Request' do
         expect(body[:data].first[:attributes][:summary]).to eq("Partly cloudy starting in the afternoon.")
 
         expect(body[:data].last[:attributes][:url]).to eq("https://giphy.com/gifs/dark-castle-63xBFHKNVjZlu")
-        expect(body[:data].last[:attributes][:summary]).to eq("Mostly cloudy starting in the afternoon")
+        expect(body[:data].last[:attributes][:summary]).to eq("Mostly cloudy starting in the afternoon.")
       end
     end
   end

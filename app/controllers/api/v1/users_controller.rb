@@ -5,12 +5,14 @@ class Api::V1::UsersController < ApplicationController
     if new_user.save
       new_user.api_key = SecureRandom.hex(13)
       render json: UserSerializer.new(new_user).serializable_hash
+    else
+      render json: new_user.errors.details
     end
   end
 
   private
 
   def user_params
-    params.permit(:email, :password)
+    params.permit(:email, :password, :password_confirmation)
   end
 end

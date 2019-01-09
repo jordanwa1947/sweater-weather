@@ -15,6 +15,7 @@ gem 'faraday'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+gem 'fast_jsonapi'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -25,7 +26,6 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
-  gem 'fast_jsonapi'
   gem 'factory_bot_rails'
   gem 'simplecov'
   gem 'shoulda-matchers', '~> 3.1'

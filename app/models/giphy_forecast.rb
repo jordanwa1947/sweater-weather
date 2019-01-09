@@ -1,10 +1,11 @@
 class GiphyForecast
-  attr_reader :time, :summary, :url 
+  attr_reader :time, :summary, :url, :copyright
 
   def initialize(day, giphy_service)
     @time = day[:time]
     @summary = day[:summary]
     @url = gif_url(giphy_service)
+    @copyright = "2019"
   end
 
   def gif_url(giphy_service)

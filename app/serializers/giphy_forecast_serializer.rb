@@ -3,5 +3,5 @@ class GiphyForecastSerializer
   set_type :daily_forecast
   set_id :time
 
-  attributes :time, :summary, :url
+  attributes :time, :summary, :url, :copyright
 end

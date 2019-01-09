@@ -1,9 +1,5 @@
 class Api::V1::SessionsController < ApplicationController
 
-  rescue_from ActiveRecord::RecordNotFound do |e|
-    render_json_error :user_not_found
-  end
-
   def create
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])

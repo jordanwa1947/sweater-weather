@@ -3,7 +3,7 @@
 Sweater Weather is a micro-service API made to serve as the backend for weather forecast web application. Sweater Weather uses the Geocoder Gem to retrieve coordinates for a given location. Those coordinates are used to retrieve local forecasts from the dark sky API and present them with a random, associated gif.
 
 ## Versions
-Ruby 2.4.4
+Ruby 2.4.4,
 Rails 5.1.6
 
 * Database: Postgresql
